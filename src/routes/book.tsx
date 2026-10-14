@@ -33,11 +33,11 @@ function Book() {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
     const err: Record<string, string> = {};
-    if (!String(f.get("parent")).trim()) err.parent = "Please enter your name.";
-    if (!/^[+\d\s()-]{7,}$/.test(String(f.get("phone")))) err.phone = "Please enter a valid contact number.";
-    if (!f.get("service")) err.service = "Please choose a service.";
-    if (!f.get("date")) err.date = "Please choose a date.";
-    if (!f.get("time")) err.time = "Please choose a time.";
+    if (!String(f.get("parent")).trim()) err["parent"] = "Please enter your name.";
+    if (!/^[+\d\s()-]{7,}$/.test(String(f.get("phone")))) err["phone"] = "Please enter a valid contact number.";
+    if (!f.get("service")) err["service"] = "Please choose a service.";
+    if (!f.get("date")) err["date"] = "Please choose a date.";
+    if (!f.get("time")) err["time"] = "Please choose a time.";
     setErrors(err);
     if (Object.keys(err).length === 0) setDone(true);
   }
@@ -65,19 +65,19 @@ function Book() {
                 <option value="">Choose a service</option>
                 {services.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
               </select>
-              {errors.service && <span className="text-xs text-destructive">{errors.service}</span>}
+              {errors["service"] && <span className="text-xs text-destructive">{errors["service"]}</span>}
             </label>
             <div className="grid gap-5 sm:grid-cols-2">
               <label className="text-sm font-semibold">Preferred date *
                 <input name="date" type="date" min={new Date().toISOString().slice(0, 10)} className={field} />
-                {errors.date && <span className="text-xs text-destructive">{errors.date}</span>}
+                {errors["date"] && <span className="text-xs text-destructive">{errors["date"]}</span>}
               </label>
               <label className="text-sm font-semibold">Time *
                 <select name="time" defaultValue="" className={field}>
                   <option value="">Choose a time</option>
                   {times.map((t) => <option key={t}>{t}</option>)}
                 </select>
-                {errors.time && <span className="text-xs text-destructive">{errors.time}</span>}
+                {errors["time"] && <span className="text-xs text-destructive">{errors["time"]}</span>}
               </label>
             </div>
             <label className="text-sm font-semibold">Special styling requests
