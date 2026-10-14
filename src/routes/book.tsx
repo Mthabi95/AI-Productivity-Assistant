@@ -5,8 +5,8 @@ import { SiteLayout, PageHeader } from "@/components/SiteLayout";
 import { services } from "@/lib/salon";
 
 export const Route = createFileRoute("/book")({
-  validateSearch: (s: Record<string, unknown>): { service?: string } => ({
-    service: typeof s.service === "string" ? s.service : undefined,
+  validateSearch: (s: Record<string, unknown>): { service?: string | undefined } => ({
+    service: typeof s["service"] === "string" ? s["service"] : undefined,
   }),
   head: () => ({
     meta: [
@@ -57,7 +57,7 @@ function Book() {
             {[["parent", "Parent or guardian's name *", "text"], ["phone", "Contact number *", "tel"], ["email", "Email (optional)", "email"], ["child", "Toddler's first name or nickname (optional)", "text"]].map(([n, l, t]) => (
               <label key={n} className="text-sm font-semibold">{l}
                 <input name={n} type={t} className={field} />
-                {errors[n] && <span className="text-xs text-destructive">{errors[n]}</span>}
+                {n && errors[n] && <span className="text-xs text-destructive">{errors[n]}</span>}
               </label>
             ))}
             <label className="text-sm font-semibold">Service *
